@@ -39,6 +39,12 @@ func createTask(name string, description string, completed bool) *task {
 		completed:   completed,
 	}
 }
+func (tl *taskList) printTasksNames() {
+	for index, task := range tl.tasks {
+		task.completeTask()
+		fmt.Println("Task N.", index, ":", task.name, "is finished.")
+	}
+}
 
 func main() {
 	var myTasks *taskList = &taskList{
@@ -49,9 +55,5 @@ func main() {
 		},
 	}
 
-	for index, task := range myTasks.tasks {
-		task.completeTask()
-		fmt.Println("Task N.", index, ":", task.name, "is finished.")
-	}
-
+	myTasks.printTasksNames()
 }
