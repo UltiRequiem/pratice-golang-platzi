@@ -2,6 +2,15 @@ package main
 
 import "fmt"
 
+type taskList struct {
+	tasks []*task
+}
+
+func (tl *taskList) addToList(t *task) {
+	tl.tasks = append(tl.tasks, t)
+
+}
+
 type task struct {
 	name        string
 	description string
@@ -28,10 +37,13 @@ func createTask(name string, description string, completed bool) *task {
 }
 
 func main() {
-	var myTask *task = createTask("End my Go course.", "End mi Golang course on Platzi today.", false)
-	fmt.Printf("%+v\n", myTask)
+	myTasks := &taskList{
+		tasks: []*task{
+			createTask("End my Go course.", "End mi Golang course on Platzi today.", false),
+			createTask("End my Python course.", "End mi Python course on Platzi today.", false),
+		},
+	}
 
-	// Some hours later
-	myTask.completeTask()
-	fmt.Printf("%+v\n", myTask)
+	fmt.Printf("%+v\n", myTasks)
+
 }
