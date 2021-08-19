@@ -39,11 +39,16 @@ func createTask(name string, description string, completed bool) *task {
 func main() {
 	myTasks := &taskList{
 		tasks: []*task{
-			createTask("End my Go course.", "End mi Golang course on Platzi today.", false),
-			createTask("End my Python course.", "End mi Python course on Platzi today.", false),
+			createTask("End my Go course", "End my Golang course on Platzi today.", false),
+			createTask("End my Python course", "End my Python course on Platzi today.", false),
+			createTask("End my Python course", "End my Nodejs course on Platzi today.", false),
 		},
 	}
 
-	fmt.Printf("%+v\n", myTasks)
+	// Complete all Tasks
+	for i := 0; i < len(myTasks.tasks); i++ {
+		myTasks.tasks[i].completeTask()
+		fmt.Println("Task: " + myTasks.tasks[i].name + " is finished.")
+	}
 
 }
