@@ -49,10 +49,9 @@ func main() {
 		},
 	}
 
-	// Complete all Tasks
-	for i := 0; i < len(myTasks.tasks); i++ {
-		myTasks.tasks[i].completeTask()
-		fmt.Println("Task: " + myTasks.tasks[i].name + " is finished.")
+	for index, task := range myTasks.tasks {
+		task.completeTask()
+		fmt.Println("Task N.", index, ":", task.name, "is finished.")
 	}
 
 }
