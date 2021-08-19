@@ -17,7 +17,7 @@ func createTask(name string, description string, completed bool) task {
 }
 
 func main() {
-	myTask := createTask("End my Go course", "End mi Golang course on Platzi today.", false)
+	var myTask task = createTask("End my Go course.", "End mi Golang course on Platzi today.", false)
 
 	fmt.Printf("%+v\n", myTask)
 }
