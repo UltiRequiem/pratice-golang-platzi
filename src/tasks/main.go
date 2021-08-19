@@ -8,8 +8,19 @@ type task struct {
 	completed   bool
 }
 
-func createTask(name string, description string, completed bool) task {
-	return task{
+func (t *task) completeTask() {
+	t.completed = true
+}
+
+func (t *task) updateName(name string) {
+	t.name = name
+}
+func (t *task) updateTask(description string) {
+	t.description = description
+}
+
+func createTask(name string, description string, completed bool) *task {
+	return &task{
 		name:        name,
 		description: description,
 		completed:   completed,
@@ -17,7 +28,10 @@ func createTask(name string, description string, completed bool) task {
 }
 
 func main() {
-	var myTask task = createTask("End my Go course.", "End mi Golang course on Platzi today.", false)
+	var myTask *task = createTask("End my Go course.", "End mi Golang course on Platzi today.", false)
+	fmt.Printf("%+v\n", myTask)
 
+	// Some hours later
+	myTask.completeTask()
 	fmt.Printf("%+v\n", myTask)
 }
