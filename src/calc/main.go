@@ -15,7 +15,7 @@ func main() {
 	fmt.Print("Please enter Operator (+,-,/,%,*):")
 	fmt.Scanln(&operator)
 
-	output := 0
+	var output int
 
 	switch operator {
 	case "+":
