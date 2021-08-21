@@ -48,7 +48,8 @@ func (tl *taskList) printCompletedTasksNames() {
 }
 
 func main() {
-	var myTasks *taskList = &taskList{
+	employeesTasks := make(map[string]*taskList)
+	employeesTasks["Zero"] = &taskList{
 		tasks: []*task{
 			createTask("End my Go course", "End my Golang course on Platzi today.", false),
 			createTask("End my Python course", "End my Python course on Platzi today.", false),
@@ -56,7 +57,7 @@ func main() {
 		},
 	}
 
-	myTasks.tasks[1].completeTask()
+	employeesTasks["Zero"].tasks[1].completeTask()
 
-	myTasks.printCompletedTasksNames()
+	employeesTasks["Zero"].printCompletedTasksNames()
 }
