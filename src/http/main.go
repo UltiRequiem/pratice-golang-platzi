@@ -2,22 +2,26 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 )
 
-func checkErr(err error) {
-	if err != nil {
-		log.Println(err)
-	}
+type webWriter struct{}
+
+func (webWriter) Write(p []byte) (int, error) {
+	fmt.Println(string(p))
+	return len(p), nil
 }
 
 func fetch(url string) *http.Response {
 	resp, err := http.Get(url)
-	checkErr(err)
+	if err != nil {
+		log.Fatalf("Error while fetching %s", url)
+	}
 	return resp
 }
 
 func main() {
-	fmt.Println(fetch("https://github.com/UltiRequiem"))
+	io.Copy(webWriter{}, fetch("http://google.com").Body)
 }
