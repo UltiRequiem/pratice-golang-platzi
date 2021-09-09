@@ -3,31 +3,37 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 )
 
 func main() {
-	init := time.Now()
+
 	servers := []string{
+		"http://facebook.com",
 		"http://platzi.com",
 		"http://google.com",
-		"http://facebook.com",
 		"http://instagram.com",
+		"http://github.com",
 	}
+
+	channel := make(chan string)
 
 	for _, s := range servers {
-		 checkServer(s)
+		go checkServer(s, channel)
 	}
 
-	fmt.Println(time.Since(init))
+	for i := 0; i < len(servers); i++ {
+		fmt.Println(<-channel)
+	}
+
 }
 
-func checkServer(server string) {
+func checkServer(server string, channel chan string) {
 	_, err := http.Get(server)
 
 	if err != nil {
-		fmt.Printf("%s is down \n", server)
-	} else {
-		fmt.Printf("%s is working \n", server)
+		channel <- fmt.Sprintf("%s is down.", server)
+		return
 	}
+
+	channel <- fmt.Sprintf("%s is not down.", server)
 }
