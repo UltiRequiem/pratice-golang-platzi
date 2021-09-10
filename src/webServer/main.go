@@ -6,7 +6,7 @@ func main() {
 	server.Handle("/", HandleRoot)
 	server.Handle("/home", HandleHome)
 
-	server.Handle("/api", server.AddMidleware(HandleAPI, CheckAuth()))
+	server.Handle("/api", server.AddMidleware(HandleAPI, CheckAuth(), Loggin()))
 
 	server.Listen()
 }
