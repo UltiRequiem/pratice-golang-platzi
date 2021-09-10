@@ -21,6 +21,18 @@ func (s *Server) Listen() error {
 	return nil
 }
 
+func (s *Server) AddMidleware(f http.HandlerFunc, middlewares ...Middleware) http.HandlerFunc {
+	for _, m := range middlewares {
+		f = m(f)
+	}
+
+	return f
+}
+
+func (s *Server) Handle(path string, handler http.HandlerFunc) {
+	s.router.rules[path] = handler
+}
+
 func NewServer(port int) *Server {
 	return &Server{
 		port:   fmt.Sprintf(":%d", port),

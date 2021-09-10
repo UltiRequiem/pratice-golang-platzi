@@ -11,8 +11,23 @@ type Router struct {
 }
 
 func (r *Router) ServeHTTP(w http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(w, "Hello world!")
-	log.Println("Page Refreshed.")
+	handler, exists := r.FindHandler(request.URL.Path)
+
+	if !exists {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprint(w, "Page Not Found")
+		return
+	}
+
+	handler(w, request)
+
+	log.Printf("%s visited!", request.URL.Path)
+
+}
+
+func (r *Router) FindHandler(path string) (http.HandlerFunc, bool) {
+	handler, exists := r.rules[path]
+	return handler, exists
 }
 
 func NewRouter() *Router {
