@@ -29,8 +29,12 @@ func (s *Server) AddMidleware(f http.HandlerFunc, middlewares ...Middleware) htt
 	return f
 }
 
-func (s *Server) Handle(path string, handler http.HandlerFunc) {
-	s.router.rules[path] = handler
+func (s *Server) Handle(method string, path string, handler http.HandlerFunc) {
+	_, exists := s.router.rules[path]
+
+	if !exists {
+		s.router.rules[path] = make(map[string]http.HandlerFunc)
+	}
 }
 
 func NewServer(port int) *Server {
